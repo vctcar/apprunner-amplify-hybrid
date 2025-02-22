@@ -6,13 +6,20 @@ import outputs from "../../amplify_outputs.json";
 import '@aws-amplify/ui-react/styles.css';
 
 const config = {
-  ...outputs, // Spread the outputs configuration
+  Auth: {
+    Cognito: {
+      userPoolId: outputs.auth.user_pool_id,
+      userPoolClientId: outputs.auth.user_pool_client_id,
+      identityPoolId: outputs.auth.identity_pool_id,
+      region: outputs.auth.aws_region,
+    }
+  },
   API: {
     GraphQL: {
-      endpoint: process.env.NEXT_PUBLIC_API_URL,
-      region: process.env.NEXT_PUBLIC_REGION,
-      defaultAuthMode: 'apiKey',
-      apiKey: process.env.NEXT_PUBLIC_API_KEY
+      endpoint: outputs.data.url,
+      region: outputs.data.aws_region,
+      defaultAuthMode: outputs.data.default_authorization_type,
+      apiKey: outputs.data.api_key
     }
   }
 };
