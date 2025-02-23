@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Amplify } from "aws-amplify";
 import { ThemeProvider } from '@aws-amplify/ui-react';
 import outputs from "../../amplify_outputs.json";
@@ -24,9 +24,22 @@ const config = {
   }
 };
 
-Amplify.configure(config);
+console.log('Amplify Configuration:', config);
+console.log('Auth Config:', config.Auth);
+console.log('Raw outputs:', outputs);
+
+try {
+  Amplify.configure(config);
+  console.log('Amplify configuration successful');
+} catch (error) {
+  console.error('Amplify configuration error:', error);
+}
 
 export function AmplifyConfig({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    console.log('AmplifyConfig component mounted');
+  }, []);
+
   return (
     <ThemeProvider>
       {children}

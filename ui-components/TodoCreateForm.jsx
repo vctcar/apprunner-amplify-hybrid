@@ -19,16 +19,20 @@ export default function TodoCreateForm(props) {
   } = props;
   const initialValues = {
     content: "",
+    priority: "" // Initial value for priority
   };
   const [content, setContent] = React.useState(initialValues.content);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setContent(initialValues.content);
+    setPriority(initialValues.priority)
     setErrors({});
   };
   const validations = {
     content: [],
+    priority: [] // Assuming no special validations
   };
+  
   const runValidationTasks = async (
     fieldName,
     currentValue,
@@ -56,6 +60,7 @@ export default function TodoCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           content,
+          priority, // Adding priority to modelFields
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
